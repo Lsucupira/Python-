@@ -1,0 +1,15 @@
+number1 = [2,4,6,8]
+number2 = [3,6,9,12]
+number3 = []
+number4 = [5.34,4.56,7.67]
+number5 = []
+x = 0
+y = 0
+while len(number3) != len(number1) :
+    def calcula (number1,number2,number3,x,y):
+        x = number1[y] * number2[y]
+        number3.append(x)
+        print(number3)
+        
+    calcula(number1,number2,number3,x,y)
+    y+=1
