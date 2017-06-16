@@ -1,0 +1,10 @@
+#analisador de kilometragem
+
+tank = float(input("tank"))
+km = float(input("km"))
+
+
+def kilometragem ():
+    return km/tank
+
+print(kilometragem())
