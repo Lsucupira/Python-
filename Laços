@@ -1,0 +1,11 @@
+brincando com laços
+i=0
+for i in [0,3,6,9,12,15,18,21]:
+    if i < 15:
+        j = i+2
+        i = j
+        print (j)
+    #elif
+        
+        print("kkk")
+        
