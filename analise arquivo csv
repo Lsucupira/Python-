@@ -1,0 +1,51 @@
+%matplotlib inline
+import pandas as pd # panda um pacote
+import matplotlib.pyplot as plt #matplotlib um pacote
+import seaborn as sns
+plt.style.use('ggplot')
+-----------------------------------------------------------------------------------------------------------------------
+cereais = pd.read_csv('Downloads/cereal.csv')
+-----------------------------------------------------------------------------------------------------------------------
+#lendo os primeiros dados para ver se esta aparentemente certo??
+cereais.head(10)
+-----------------------------------------------------------------------------------------------------------------------
+#lendo os tipos de dados
+cereais.dtypes
+--------------------------------------------------------------------------------------------------------------------
+#nomeando as colunas
+cereais.columns=['Nome','MRF','Tipos','Calorias','Proteinas','Gorduras','Sódio','Fibras','Carboidratos','acucares','potássio','Vitaminas','self','Peso','Xícaras','Avaliaçao']
+-----------------------------------------------------------------------------------------------------------------------------------
+#contando 
+cereais['Proteinas'].value_counts()
+--------------------------------------------------------------------------------------------------------------------------------
+#usaremos loc que é semelhante a condição where do linguagem sql, utilizando & 
+
+cereais.loc[(cereais['Proteinas']==3) & (cereais['Gorduras'] > 2)]
+---------------------------------------------------------------------------------------------------------------------------------
+#ordenar os dados em ordem descescente, como por 
+cereais.sort_values(by='Calorias', ascending=False)
+----------------------------------------------------------------------------------------------------------------------------------
+# vamos inserir uma coluna dos mais caloricos,podiamos fazer por pessoas diabete ou nao, pressao alta ou problemas com intestinos
+#15 é um exemplo,para calcular é necesario somar os cabordiatros dos alimentos depois dividir pela quantidade de insulna para a digestao dessa quantidade
+cereais['Consumo recomendado'] = (cereais['Calorias']/15 )
+----------------------------------------------------------------------------------------------------------------------------------
+cereais['Consumo recomendado']
+------------------------------------------------------------------------------------------------------------------------------------
+# vou classificar os cereais , por niveis de calorias um exemplo depois arrumanos os valores
+def classificar(s):
+    if s >= 32:
+       return 'high'
+    elif s >= 6:
+       return 'Medium'
+    elif s >= 5:
+       return 'low'
+---------------------------------------------------------------------------------------------------------------------------------
+#vou aplicar a função apply do pandas
+# o cat criada por uma aplicaçao acima
+cereais['cat_Consumo recomendado'] = cereais['Consumo recomendado'].apply(classificar)
+---------------------------------------------------------------------------------------------------------------------------------
+#mostrando valores para ver se deu certo agora so arrumar rs
+pd.value_counts(cereais['cat_Consumo recomendado'])
+------------------------------------------------------------------------------------------------------------------------------------
+#criar o garfico
+cereais.plot(x='Consumo recomendado',y='Calorias',kind='scatter', title='Calorias x Consumo',color='r')
