@@ -1,0 +1,71 @@
+%matplotlib inline
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set(style='whitegrid')
+----------------------------------------------------------------------------------------------------------------------------
+pd.read_excel('C:\series_historicas.xls', sheetname=1).head()
+----------------------------------------------------------------------------------------------------------------------------
+pd.read_excel('C:\series_historicas.xls', sheetname=1, skiprows=5).head()
+-----------------------------------------------------------------------------------------------------------------------------
+#colocar as colunas, utlizaremos range para alcançar digamos  Nesse caso, criamos uma lista com os número de 1 a 12, chamada "colunas". Note que a primeira coluna não vai mais aparecer, pois ela estava na posição 0.
+colunas = list(range(1, 12))
+pd.read_excel('C:\series_historicas.xls', sheetname=1, skiprows=6, 
+              parse_cols=colunas).head()
+ ----------------------------------------------------------------------------------------------------------------------             
+ #O próximo passo é criar nomes corretos para as colunas, submetendo uma lista ao argumennto
+
+colunas = list(range(1, 14))
+nomes = ['ano', 'pib_cresc', 'pib_defl', 'pib_nominal', 'igp', 'popul', 'cambio', 
+         'pib_dolar', 'carga_trib', 'pib_mundo_cresc', 'pib_al_cresc']
+
+pd.read_excel('C:\series_historicas.xls', sheetname=1, skiprows=6, 
+              parse_cols=colunas, names=nomes).head()
+---------------------------------------------------------------------------------------------------------------------              
+#É preciso sempre verificar o final da tabela para conferir se não há linhas com comentários, fonte dos dados etc.
+#Isso é feito usando o comando .tail().
+
+
+colunas = list(range(1, 14))
+nomes = ['ano', 'pib_cresc', 'pib_defl', 'pib_nominal', 'igp', 'popul', 'cambio', 
+         'pib_dolar', 'carga_trib', 'pib_mundo_cresc', 'pib_al_cresc']
+
+pd.read_excel('C:\series_historicas.xls', sheetname=1, skiprows=6,
+              parse_cols=colunas, names=nomes).tail(20)
+-------------------------------------------------------------------------------------------------------------------
+#Como você pode notar, há diversas linhas com comentários ao invés de dados.
+#Para retirá-las, basta usar o argumento skipfooter, indicando o número de linhas que você deseja descartar (contando de baixo para cima).
+
+colunas = list(range(1, 14))
+nomes = ['ano', 'pib_cresc', 'pib_defl', 'pib_nominal', 'igp', 'popul', 'cambio', 
+         'pib_dolar', 'carga_trib', 'pib_mundo_cresc', 'pib_al_cresc']
+
+pd.read_excel('C:\series_historicas.xls', sheetname=1, skiprows=6, skipfooter=12,
+              parse_cols=colunas, names=nomes).tail()
+
+-----------------------------------------------------------------------------------------
+
+colunas = list(range(1,10))
+
+ind = pd.read_excel('C:\series_historicas.xls', 
+                    sheetname='Tab 4', skiprows=5, skip_footer=2, 
+                    parse_cols=colunas)
+
+ind.columns = ind.columns.str.lower()            # todas as letras dos nomes das colunas em caixa baixa
+ind.columns = ind.columns.str.replace(' ', '')   # substitui espaço em branco por nada, isto é, 
+                                                 # exclui espaço em branco
+
+ind.index = ind.ano
+ind.drop('ano', axis=1, inplace=True)
+--------------------------------------------------------------------------------------------------------
+
+ind.plot(figsize=(14, 4))
+plt.axhline(0, c='red', linewidth=1)
+plt.legend(ncol=2); # legenda em duas colunas
+
+-------------------------------------------------------------------------------------
+ind.plot(figsize=(16, 8))# (tamanho do grafico  em largura e altura
+plt.axhline(0, c='red', linewidth=1)
+plt.legend(ncol=2); # legenda em duas colunas
+
+-------------------------------------------------------------------------------------------------------------
