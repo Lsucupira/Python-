@@ -1,0 +1,22 @@
+#importe a biblioteca usada para consultar uma URL
+import urllib.request
+------------------------------------------------------------
+#importe as funções BeautifulSoup para analisar os dados retornados do site
+from bs4 import BeautifulSoup
+------------------------------------------------------------------------------
+#coloque o endreço do site no caso o URL
+consumoprev = "https://exame.abril.com.br/marketing/as-10-tendencias-globais-de-consumo-em-2019/"
+-------------------------------------------------------------------------------------------------
+#Consultar o site e retornar o html para a variável 'pagina'
+page = urllib.request.urlopen(consumoprev)
+-------------------------------------------------------------------------------------------------
+#Parse o html na variável 'page' e armazene-o no formato BeautifulSoup, esta biblioteca quefaz toda magica de trabalho
+soup = BeautifulSoup(page, 'html5lib')
+--------------------------------------------------------------------------------------------------------------------------
+print(soup.title)
+---------------------------------------------------------------------------------------------------------
+#função “prettify” para ver a estrutura separada da página HTML
+print(soup.prettify())
+----------------------------------------------------------------------------------------------------------
+Referencias:
+https://goomore.com/blog/web-scraping-python/
